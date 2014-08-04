@@ -14,13 +14,20 @@ function Game(player1, player2) {
 
 Game.prototype.winner = function() {
 
-	var beats = {'rock':'scissors', 'scissors':'paper', 'paper':'rock'};
+	var beats = { 'rock' : ['scissors', 'lizard'],
+								'scissors' : ['paper', 'lizard'],
+								'paper' : ['rock', 'spock'],
+								'lizard' : ['paper', 'spock'],
+								'spock' : ['scissors', 'rock']
+							};
 
   if (this.same_pick()) {
   	return null;
-  } else if (beats[this.player1.pick] == this.player2.pick) {
+  }
+  else if ((beats[this.player1.pick]).indexOf(this.player2.pick) > -1) {
   	return this.player1;
-  } else {
+  }
+  else {
   	return this.player2;
   }
 }
