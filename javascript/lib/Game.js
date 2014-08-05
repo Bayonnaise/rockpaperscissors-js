@@ -1,17 +1,3 @@
-function Player(name) {
-  // 'initialize' method goes here!
-  this.name = name;
-}
-
-Player.prototype.picks = function(pick) {
-  this.pick = pick;
-};
-
-Player.prototype._defeats = function(opponent) {
-	return Object.keys(Game.prototype.PAIRS[this.pick]).indexOf(opponent.pick) > -1;
-};
-
-
 function Game(player1, player2) {
   this.player1 = player1;
   this.player2 = player2;
@@ -48,6 +34,21 @@ Game.prototype._isSamePick = function() {
 };
 
 Game.prototype.victoryMessage = function() {
-	var method = this.PAIRS[this.winner().pick][this.loser().pick];
-	return this.winner().name + "'s " + this.winner().pick + " " + method + " " + this.loser().name + "'s " + this.loser().pick;
+	if (this.winner() == null) {
+		return "Draw";
+	} else {
+		this.winner().wins();
+		var method = this.PAIRS[this.winner().pick][this.loser().pick];
+		return this.winner().name + "'s " + this.winner().pick + " " + method + " " + this.loser().name + "'s " + this.loser().pick;
+	}
+};
+
+Game.prototype.messageClass = function() {
+  if (this.winner() === this.player1) {
+  	return "winner";
+  } else if (this.winner() === this.player2) {
+  	return "loser";
+  } else {
+  	return "draw";
+  };
 };
